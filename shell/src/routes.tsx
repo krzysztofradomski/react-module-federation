@@ -1,8 +1,7 @@
 import React, { Fragment, lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import modules from "../modules.json";
-
-// import app1Method from "enrico/method";
+import { Timer } from "./components/ErrorBoundary";
 
 const ModuleMap = {
   app1: lazy(() => import("app1/index")),
@@ -17,14 +16,15 @@ type RouteType = {
   path: string;
   key: string;
   Component: React.ReactNode;
-  subRoutes: RouteType[];
+  name?: string;
+  subRoutes?: RouteType[];
 };
 
 export const ROUTES: RouteType[] = [
   {
     path: "/",
     key: "ROOT",
-    Component: <p>shell landing page</p>,
+    Component: () => <p>shell landing page</p>,
     subRoutes: [],
   },
   ...Object.entries(modules).map(([key]) => {
@@ -40,7 +40,9 @@ export const ROUTES: RouteType[] = [
 function LazyPage({ route }: { route: RouteType }) {
   return (
     <section>
-      <Suspense fallback="loading...">{<route.Component />}</Suspense>
+      <Suspense fallback={<Timer waitingFor={route.name || route.path} />}>
+        <route.Component />
+      </Suspense>
     </section>
   );
 }
