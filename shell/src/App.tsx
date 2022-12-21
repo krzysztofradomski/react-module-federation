@@ -1,25 +1,25 @@
-import React, { JSX } from "react";
-import modules from "./../modules.json";
+import React, { JSX } from "react"
+import modules from "./../modules.json"
 
-import app1Method from "enrico/method";
+import app1Method from "app1/method"
 
 const ModuleMap = {
   null: () => null,
-  app1: React.lazy(() => import("enrico/index")),
+  app1: React.lazy(() => import("app1/index")),
   app2: React.lazy(() => import("app2/index")),
-};
+}
 
 if (Object.keys(modules).length !== Object.keys(ModuleMap).length - 1) {
-  throw new Error("ModuleMap and modules.json are out of sync");
+  throw new Error("ModuleMap and modules.json are out of sync")
 }
 
 const ComponentsMap = {
   App2Button: React.lazy(() => import("app2/Button")),
-};
+}
 
 const App = () => {
-  const [module, setModule] = React.useState<JSX.Element | null>(null);
-  const Module = ModuleMap[module];
+  const [module, setModule] = React.useState<JSX.Element | null>(null)
+  const Module = ModuleMap[module]
 
   return (
     <div>
@@ -40,7 +40,7 @@ const App = () => {
         </React.Suspense>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

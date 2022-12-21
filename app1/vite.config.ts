@@ -1,11 +1,21 @@
-import { defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react-refresh";
-import federation from "@originjs/vite-plugin-federation";
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import federation from "@originjs/vite-plugin-federation"
+import typescript from "@rollup/plugin-typescript"
+import { typescriptPaths } from "rollup-plugin-typescript-paths"
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    reactRefresh(),
+    typescriptPaths({
+      preserveExtensions: true,
+    }),
+    typescript({
+      sourceMap: false,
+      declaration: true,
+      outDir: "dist",
+    }),
+    react(),
     federation({
       name: "app1",
       filename: "app1.js",
@@ -20,4 +30,4 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false,
   },
-});
+})
