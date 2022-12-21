@@ -1,11 +1,11 @@
 import React, { JSX } from "react";
 import modules from "./../modules.json";
 
-import app1Method from "enrico/method";
+import app1Method from "app1/method";
 
 const ModuleMap = {
   null: () => null,
-  app1: React.lazy(() => import("enrico/index")),
+  app1: React.lazy(() => import("app1/index")),
   app2: React.lazy(() => import("app2/index")),
 };
 
