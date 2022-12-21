@@ -11,6 +11,7 @@ export default defineConfig({
       name: "shell",
       filename: "shell.js",
       remotes: modules,
+      shared: ["react", "react-dom"],
     }),
   ],
   build: {
