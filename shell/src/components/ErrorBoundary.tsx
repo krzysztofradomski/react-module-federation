@@ -26,7 +26,6 @@ const FallbackComponent = ({ error, resetErrorBoundary }) => {
   );
 };
 
-// create function component that throws error 5 secs after mounting
 export const Timer = ({ waitingFor = "unknown" }) => {
   const [time, setTime] = useState(0);
 
