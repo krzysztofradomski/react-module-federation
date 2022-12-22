@@ -13,6 +13,7 @@ export default defineConfig({
         "./index": "./src/App.tsx",
         "./Button": "./src/Button.tsx",
       },
+      shared: ["react", "react-dom"],
     }),
   ],
   build: {

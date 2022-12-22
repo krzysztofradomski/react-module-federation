@@ -13,6 +13,7 @@ export default defineConfig({
         "./index": "./src/App.tsx",
         "./method": "./src/method.ts",
       },
+      shared: ["react", "react-dom"],
     }),
   ],
   build: {
