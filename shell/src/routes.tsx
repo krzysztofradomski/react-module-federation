@@ -4,8 +4,8 @@ import modules from "../modules.json";
 import { Timer } from "./components/ErrorBoundary";
 
 const ModuleMap = {
-  app1: lazy(() => import("app1/index")),
-  app2: lazy(() => import("app2/index")),
+  app1: lazy(() => import("app1/App")),
+  app2: lazy(() => import("app2/App")),
 };
 
 if (Object.keys(modules).length !== Object.keys(ModuleMap).length) {
