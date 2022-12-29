@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "strict": true,
     "sourceMap": true,
-    "types": ["vite/client", "node"],
+    "types": ["vite/client", "react", "react-dom"],
     "baseUrl": ".",
     "paths": {
       "app1/*": ["app1/dist/types/*"],
