@@ -1,24 +1,28 @@
-import React, { Fragment, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import modules from "../modules.json";
-import { Timer } from "./components/ErrorBoundary";
+import React, { Fragment, lazy, Suspense } from "react"
+import { Route, Routes } from "react-router-dom"
+import modules from "../modules.json"
+import { Timer } from "./components/ErrorBoundary"
 
-const ModuleMap = {
+type Component =
+  | React.FunctionComponent<any>
+  | React.LazyExoticComponent<React.FunctionComponent<any>>
+
+const ModuleMap: Record<string, Component> = {
   app1: lazy(() => import("app1/App")),
   app2: lazy(() => import("app2/App")),
-};
+}
 
 if (Object.keys(modules).length !== Object.keys(ModuleMap).length) {
-  throw new Error("Shell routes and modules are out of sync");
+  throw new Error("Shell routes and modules are out of sync")
 }
 
 type RouteType = {
-  path: string;
-  key: string;
-  Component: React.ReactNode;
-  name?: string;
-  subRoutes?: RouteType[];
-};
+  path: string
+  key: string
+  Component: Component
+  name?: string
+  subRoutes?: RouteType[]
+}
 
 export const ROUTES: RouteType[] = [
   {
@@ -33,9 +37,9 @@ export const ROUTES: RouteType[] = [
       key,
       Component: ModuleMap[key],
       subRoutes: [],
-    };
+    }
   }),
-];
+]
 
 function LazyPage({ route }: { route: RouteType }) {
   return (
@@ -44,7 +48,7 @@ function LazyPage({ route }: { route: RouteType }) {
         <route.Component />
       </Suspense>
     </section>
-  );
+  )
 }
 
 function renderRoutes(routes: RouteType[]) {
@@ -57,9 +61,9 @@ function renderRoutes(routes: RouteType[]) {
         </Fragment>
       ))}
     </Fragment>
-  );
+  )
 }
 
 export const ContentRouter = () => {
-  return <Routes>{renderRoutes(ROUTES)}</Routes>;
-};
+  return <Routes>{renderRoutes(ROUTES)}</Routes>
+}
