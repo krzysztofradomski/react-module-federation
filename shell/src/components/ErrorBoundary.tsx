@@ -24,7 +24,7 @@ const FallbackComponent = ({
   return (
     <div>
       <p>An error occurred: {error.message}</p>
-      <button onClick={(e) => resetErrorBoundary}>Try again</button>
+      <button onClick={resetErrorBoundary}>Try again</button>
       <button onClick={resetErrorBoundary}>
         <NavLink to="/">Back to homepage</NavLink>
       </button>
