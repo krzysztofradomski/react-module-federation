@@ -13,9 +13,9 @@
     "stop": "kill-port --port 5000,5001,5002"
   },
   "devDependencies": {
-    "@originjs/vite-plugin-federation": "workspace:*",
-    "kill-port": "^2.0.1",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.10"
+    "@originjs/vite-plugin-federation": "^1.2.1",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "kill-port": "^2.0.1"
   }
 }

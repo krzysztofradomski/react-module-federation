@@ -8,13 +8,13 @@
     "serve": "vite preview --port 5000 --strictPort"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^3.0.0",
+    "@vitejs/plugin-react": "^3.1.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-error-boundary": "^3.1.4",
-    "react-router-dom": "^6.5.0"
+    "react-router-dom": "^6.8.2"
   },
   "devDependencies": {
-    "vite": "^3.0.7"
+    "vite": "^4.1.4"
   }
 }

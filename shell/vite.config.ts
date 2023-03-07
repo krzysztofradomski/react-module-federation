@@ -1,7 +1,7 @@
-import { defineConfig } from "vite"
-import react from "@vitejs/plugin-react"
-import federation from "@originjs/vite-plugin-federation"
-import modules from "./modules.json"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import federation from "@originjs/vite-plugin-federation";
+import modules from "./modules.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +11,7 @@ export default defineConfig({
       name: "shell",
       filename: "shell.js",
       remotes: modules,
+      shared: ["react", "react-dom"],
     }),
   ],
   build: {
@@ -18,4 +19,4 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false,
   },
-})
+});
