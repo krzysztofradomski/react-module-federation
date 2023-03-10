@@ -2,6 +2,7 @@ import React, { Fragment, lazy, Suspense } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { Timer } from "./components/ErrorBoundary";
 import LandingPage from "./components/LandingPage";
+import NoMatch from "./components/NoMatch";
 
 type Component =
   | React.FunctionComponent<any>
@@ -58,10 +59,7 @@ export const ContentRouter = () => {
       <Route path="/" element={<LandingPage />}>
         {renderRoutes(ROUTES)}
       </Route>
-      <Route
-        path="*"
-        element={<main className="layout-main">page not found</main>}
-      />
+      <Route path="*" element={<NoMatch />} />
     </Routes>
   );
 };

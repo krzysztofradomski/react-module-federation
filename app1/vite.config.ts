@@ -21,7 +21,6 @@ export default defineConfig({
       filename: "app1.js",
       exposes: {
         "./App": "./src/App.tsx",
-        "./method": "./src/method.ts",
       },
       shared: ["react", "react-dom", "react-router-dom"],
     }),

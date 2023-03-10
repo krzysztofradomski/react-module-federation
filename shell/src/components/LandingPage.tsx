@@ -6,7 +6,6 @@ export default function LandingPage() {
   const [renderOutlet, setRenderOutlet] = useState(false);
 
   useEffect(() => {
-    console.log({ location });
     if (location.pathname !== "/") {
       setRenderOutlet(true);
     }
@@ -15,6 +14,6 @@ export default function LandingPage() {
   return renderOutlet ? (
     <Outlet />
   ) : (
-    <main className="layout-main">shell landing page</main>
+    <main className="layout-main landing-page">shell landing page</main>
   );
 }
