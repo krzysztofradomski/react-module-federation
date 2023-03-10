@@ -21,14 +21,14 @@ export default defineConfig({
       filename: "app2.js",
       exposes: {
         "./App": "./src/App.tsx",
-        "./Button": "./src/Button.tsx",
       },
       shared: ["react", "react-dom"],
     }),
   ],
   build: {
     target: "esnext",
-    minify: false,
+    sourcemap: process.env.NODE_ENV === "production" ? false : true,
+    minify: process.env.NODE_ENV === "production" ? true : false,
     cssCodeSplit: false,
   },
 });

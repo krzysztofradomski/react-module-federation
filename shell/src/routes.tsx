@@ -1,6 +1,5 @@
 import React, { Fragment, lazy, Suspense } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
-import modules from "../modules.json";
 import { Timer } from "./components/ErrorBoundary";
 
 type Component =
@@ -12,10 +11,6 @@ const ModuleMap: Record<string, Component> = {
   app2: lazy(() => import("app2/App")),
 };
 
-if (Object.keys(modules).length !== Object.keys(ModuleMap).length) {
-  throw new Error("Shell routes and modules are out of sync");
-}
-
 type RouteType = {
   path: string;
   key: string;
@@ -25,9 +20,9 @@ type RouteType = {
 };
 
 export const ROUTES: RouteType[] = [
-  ...Object.entries(modules).map(([key]) => {
+  ...Object.entries(ModuleMap).map(([key]) => {
     return {
-      path: key,
+      path: key + "/*",
       key,
       Component: ModuleMap[key],
       subRoutes: [],

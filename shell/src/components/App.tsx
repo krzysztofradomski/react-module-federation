@@ -1,18 +1,14 @@
 import React from "react";
-import Header from "./Header";
 import Nav from "./Nav";
-import Main from "./Main";
-import Footer from "./Footer";
+import Main from "./Microfrontends";
 import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="shell-wrapper">
-        <Header />
+      <div className="layout-wrapper">
         <Nav />
         <Main />
-        <Footer />
       </div>
     </BrowserRouter>
   );

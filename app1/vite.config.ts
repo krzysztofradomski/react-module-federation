@@ -23,12 +23,13 @@ export default defineConfig({
         "./App": "./src/App.tsx",
         "./method": "./src/method.ts",
       },
-      shared: ["react", "react-dom"],
+      shared: ["react", "react-dom", "react-router-dom"],
     }),
   ],
   build: {
     target: "esnext",
-    minify: false,
+    sourcemap: process.env.NODE_ENV === "production" ? false : true,
+    minify: process.env.NODE_ENV === "production" ? true : false,
     cssCodeSplit: false,
   },
 });

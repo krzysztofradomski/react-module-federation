@@ -1,18 +1,6 @@
-.shell-header {
-  grid-area: header;
-}
-.shell-main {
-  grid-area: main;
-}
-.shell-nav {
-  grid-area: nav;
-}
-
-.shell-footer {
-  grid-area: footer;
-}
-
-.shell-wrapper {
+.layout-wrapper {
+  width: 100vh;
+  height: calc(100vh - 20px);
   display: grid;
   gap: 20px;
   grid-template-areas:
@@ -22,24 +10,40 @@
     "footer";
 }
 
+.layout-wrapper * {
+  padding: 10px;
+}
+
+.layout-header {
+  grid-area: header;
+  background-color: orange;
+}
+.layout-main {
+  grid-area: main;
+  background-color: lightblue;
+}
+.layout-nav {
+  grid-area: nav;
+  background-color: aquamarine;
+}
+
+.layout-footer {
+  grid-area: footer;
+  background-color: orange;
+}
+
 @media (min-width: 700px) {
-  .shell-wrapper {
-    grid-template-columns: 1fr 4fr 1fr;
+  .layout-wrapper {
+    grid-template-columns: 2fr 10fr;
     grid-template-areas:
-      "header header header"
-      "nav    main   main"
-      "nav    main   main"
-      "footer footer footer";
+      "nav header"
+      "nav main"
+      "nav main"
+      "nav footer";
   }
   nav ul {
     flex-direction: column;
   }
-}
-
-.shell-wrapper * {
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  padding: 10px;
 }
 
 button:hover {
