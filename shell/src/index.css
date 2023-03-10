@@ -1,11 +1,13 @@
 .layout-wrapper {
-  width: 100vh;
+  width: calc(100vw - 20px);
   height: calc(100vh - 20px);
   display: grid;
   gap: 20px;
   grid-template-areas:
     "header"
     "nav"
+    "main"
+    "main"
     "main"
     "footer";
 }
@@ -34,9 +36,10 @@
 
 @media (min-width: 700px) {
   .layout-wrapper {
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 100px 1fr;
     grid-template-areas:
       "nav header"
+      "nav main"
       "nav main"
       "nav main"
       "nav footer";

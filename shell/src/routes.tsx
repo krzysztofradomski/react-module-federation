@@ -1,6 +1,7 @@
 import React, { Fragment, lazy, Suspense } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { Timer } from "./components/ErrorBoundary";
+import LandingPage from "./components/LandingPage";
 
 type Component =
   | React.FunctionComponent<any>
@@ -32,11 +33,9 @@ export const ROUTES: RouteType[] = [
 
 function LazyPage({ route }: { route: RouteType }) {
   return (
-    <section>
-      <Suspense fallback={<Timer waitingFor={route.name || route.path} />}>
-        <route.Component />
-      </Suspense>
-    </section>
+    <Suspense fallback={<Timer waitingFor={route.name || route.path} />}>
+      <route.Component />
+    </Suspense>
   );
 }
 
@@ -56,9 +55,13 @@ function renderRoutes(routes: RouteType[]) {
 export const ContentRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Outlet />}>
+      <Route path="/" element={<LandingPage />}>
         {renderRoutes(ROUTES)}
       </Route>
+      <Route
+        path="*"
+        element={<main className="layout-main">page not found</main>}
+      />
     </Routes>
   );
 };

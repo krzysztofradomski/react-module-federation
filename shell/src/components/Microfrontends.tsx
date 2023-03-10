@@ -4,10 +4,10 @@ import ErrorBoundary from "./ErrorBoundary";
 
 export default function Microfrontends() {
   return (
-    <main className="layout-main ">
+    <>
       <ErrorBoundary>
         <ContentRouter />
       </ErrorBoundary>
-    </main>
+    </>
   );
 }
