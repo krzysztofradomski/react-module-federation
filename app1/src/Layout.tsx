@@ -1,6 +1,15 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import Header from "../../shell/src/components/Header";
+// import Header from "../../shell/src/components/Header";
+
+function Header({ children }: { children?: React.ReactNode }) {
+  return (
+    <header className="layout-header">
+      <p>header imported from components/react/prime/header</p>
+      {children}
+    </header>
+  );
+}
 
 export default function Layout() {
   const baseUrl = "/app1";

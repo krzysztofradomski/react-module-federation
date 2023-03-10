@@ -1,6 +1,24 @@
 import React, { useState } from "react";
-import Header from "../../shell/src/components/Header";
-import Footer from "../../shell/src/components/Footer";
+// import Header from "../../shell/src/components/Header";
+// import Footer from "../../shell/src/components/Footer";
+
+function Header({ children }: { children?: React.ReactNode }) {
+  return (
+    <header className="layout-header">
+      <p>header imported from components/react/prime/header</p>
+      {children}
+    </header>
+  );
+}
+
+function Footer({ children }: { children?: React.ReactNode }) {
+  return (
+    <footer className="layout-footer">
+      <p>Footer imported from components/react/prime/footer</p>
+      {children}
+    </footer>
+  );
+}
 
 const App = () => {
   const [count, setCount] = useState(0);
