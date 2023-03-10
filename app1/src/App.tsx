@@ -14,7 +14,11 @@ function App() {
     setUsers((prevState) => [...prevState, user]);
     event.currentTarget.reset();
     if (window.location.search) {
-      window.location.search = "";
+      window.history.pushState(
+        "object",
+        document.title,
+        location.href.split("?")[0]
+      );
     }
   };
 
@@ -30,7 +34,7 @@ function App() {
           path="/users/add"
           element={<User handleSubmit={handleSubmit} />}
         />
-        <Route path="/users/*" element={<User />} />
+        <Route path="/users/*" element={<User users={users} />} />
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>

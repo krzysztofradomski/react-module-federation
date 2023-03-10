@@ -1,5 +1,5 @@
 import React, { Fragment, lazy, Suspense } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Timer } from "./components/ErrorBoundary";
 import LandingPage from "./components/LandingPage";
 import NoMatch from "./components/NoMatch";
