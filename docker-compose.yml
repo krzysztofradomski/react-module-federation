@@ -12,3 +12,8 @@ services:
     build: app2
     ports:
       - "5002:80"
+
+  componet1:
+    build: webcomponent1
+    ports:
+      - "5003:80"

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import Header from "../../shell/src/components/Header";
 // import Footer from "../../shell/src/components/Footer";
+import "http://localhost:5003/index.js";
 
 function Header({ children }: { children?: React.ReactNode }) {
   return (
@@ -38,6 +39,8 @@ const App = () => {
         <button onClick={() => setCount(count + 1)}>Increment</button>
         <hr />
         <button onClick={cta}>CTA to app1 navigation example</button>
+        <hr />
+        <hello-world></hello-world>
       </main>
       <Footer>
         <p>App2 Footer content</p>
