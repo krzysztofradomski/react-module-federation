@@ -10,30 +10,32 @@
 
 ### Table of Contents
 
-### 1. [Introduction](#1-introduction)
+- [Introduction](#introduction)
 
-### 2. [Structure and setup](#2-structure-and-setup)
+- [Structure and setup](#structure-and-setup)
 
-### 3. [Host configuration and contracts](#3-host-configuration-and-contracts)
+- [Host configuration and contracts](#host-configuration-and-contracts)
 
-### 4. [Layout and styling](#4-layout-and-styling)
+- [Layout and styling](#layout-and-styling)
 
-### 5. [Data sharing between microfrontends](#5-data-sharing-between-microfrontends)
+- [Data sharing between microfrontends](#data-sharing-between-microfrontends)
 
-### 6. [Development](#6-development)
+- [Development](#development)
 
-### 7. [Deployment](#7-deployment)
+- [Deployment](#deployment)
 
-### 8. [Common issues](#8-common-issues)
+- [Common issues](#common-issues)
 
-### 9. [Integration of an external web app using web component](#9-integration-of-an-external-web-app-using-web-component)
+- [Integration of an external web app using web component](#integration-of-an-external-web-app-using-web-component)
 
-### 10. [Recommended resources](#10-recommended-resources)
+- [Recommended resources](#recommended-resources)
 
 <br />
 <br />
 
-### 1. Introduction <a name="1-introduction"></a>
+## Introduction
+
+###### [back to index](#table-of-contents)
 
 This project is a proof of concept for microfrontends using Vite and module federation. It is based on the [Vite + Module Federation plugin](plugin). React is the 'metaframework' and glue of the system. Host application is a React application and the microfrontends are also React applications. The project contains both page and component level microfrontends. It is a runtime integration, meaning that the microfrontends can be deployed separately and the host application is responsible for loading them at runtime. The host application is also responsible for the routing and the layout of the microfrontends. <br />The microfrontends are not aware of the host application and can be deployed independently.
 In this example, the micro apps and the host all run React, but it is possible to use other frameworks as well - such apps need to be built as a web component and hosted within a React container - effectively creating a mix of runtime and buildtime integration. However, since Vite supports other frameworks and the module federation plugin is seems to be compatible with Webpack module federation plugin, it might be possible to integrate other frameworks without using web component as a wrapper - but this was not tested at the time of writing.<br />
@@ -42,7 +44,9 @@ Also, the web component here was used as a simple widget and not a page level mi
 <br />
 <br />
 
-### 2. Structure and setup <a name="2-structure-and-setup"></a>
+## Structure and setup
+
+###### [back to index](#table-of-contents)
 
 For the sake of simplicity, the project is contained in 1 repository and structured as follows:
 
@@ -58,7 +62,9 @@ It also serves as proof of concept for the deployment of this system, as one can
 <br />
 <br />
 
-### 3. Host configuration and contracts <a name="3-host-configuration-and-contracts"></a>
+## Host configuration and contracts
+
+###### [back to index](#table-of-contents)
 
 Module federation plugin governs the communication between the host and the microfrontends. It is configured in the host application's vite.config.js file. The most important part of the config is specifying the modules (`remotes`) and common libraries (`shared`) that the host application will expose to the microfrontends. The microfrontends will then be able to import these modules and libraries from the host app.
 These names and location of modules, and the common dependencies lists form the only contract between the host and the microfrontends. The `remotes` is an object with namespaces as keys, and the values must be urls where the resoures are available - here it is specified in the `.env` file and mirrored in the `docker-compose` file, but obviously a more robust solution must be used in a real environment.
@@ -81,14 +87,18 @@ Note: the `shared` object is used to specify the common dependencies that the ho
 <br />
 <br />
 
-### 4. Layout and styling <a name="4-layout-and-styling"></a>
+## Layout and styling
+
+###### [back to index](#table-of-contents)
 
 In this simplistic example, the layout is handled by the shell app that applies a simple grid layout to the microfrontends. The microfrontends are not aware of the layout or styling. Obviously, this is not a scalable solution, but it is a good starting point for a proof of concept. In a sustainable solution, a common styling library should be used where each of the microfronteds load layout level components, or style sheets, thus ensuring that the layout is consistent across the whole system. A starting point is made where the microfrontends can load a layout component from the host app, but this is commmented out in this example as it does not work out of box the when deploying with Docker.
 
 <br />
 <br />
 
-### 5. Data sharing between microfrontends <a name="5-data-sharing-between-microfrontends"></a>
+## Data sharing between microfrontends
+
+###### [back to index](#table-of-contents)
 
 There are only 6 reasonable ways to share the state across microfrontends:
 
@@ -113,7 +123,9 @@ It is a safe solution, but not really scalable. It advantage lies in versatily a
 <br />
 <br />
 
-### 8. Development <a name="8-development"></a>
+## Development
+
+###### [back to index](#table-of-contents)
 
 In this simple example, it is possible to run `yarn vite dev` inside each of the app and develop each app individually. Note that there is a react-router-bug inside app1 (need to fix a condition preventing loading 2 instances or BrowserRouter), and to develop the web component example you only need to edit it's source (`webcomponent1/index.js`) file.
 <br />
@@ -122,7 +134,9 @@ The interactions are best observed if the system is run using `docker-compose`, 
 <br />
 <br />
 
-### 7. Deployment <a name="7-deployment"></a>
+## Deployment
+
+###### [back to index](#table-of-contents)
 
 The docker-compose file is a good starting point for deployment. It is possible to run the system locally using `docker-compose up`, and it is also possible to deploy it as a whole to a server.
 <br />
@@ -133,7 +147,9 @@ Each of these `Docker` files runs a build provess and then serves its contents a
 <br />
 <br />
 
-### 8. Common issues and pitfalls <a name="8-common-issues-and-pitfalls"></a>
+## Common issues
+
+###### [back to index](#table-of-contents)
 
 Pitfalls and common issues are mostly related to 3 things: deep routing within the microfrontends, authorization and authentification, and data sharing.
 
@@ -142,7 +158,9 @@ Pitfalls and common issues are mostly related to 3 things: deep routing within t
 <br />
 <br />
 
-### 9. Integration of an external web app using web component <a name="9-integration-of-an-external-web-app-using-web-component"></a>
+## Integration of an external web app using web component
+
+###### [back to index](#table-of-contents)
 
 It is possible to integrate any js application as a web component, and then use it in a microfrontend. It works just as fine for a page level components, or standalone widgets. This is a good solution for external apps, or simple widgets made with other any technologies. The only requirement the source is a javascript file and is made available using a url.
 <br />
@@ -156,7 +174,9 @@ Integrations of external apps using iframes or other similar solutions are not c
 <br />
 <br />
 
-### 10. Recommended resources <a name="10-recommended-resources"></a>
+## Recommended resources
+
+###### [back to index](#table-of-contents)
 
 There are many resources available on the internet, but here are some of the best ones:
 
