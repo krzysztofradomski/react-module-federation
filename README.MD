@@ -12,7 +12,7 @@
 
 ### 5. Data sharing between microfrontends
 
-### 8. Development
+### 6. Development
 
 ### 7. Deployment
 
@@ -75,3 +75,48 @@ Note: the `shared` object is used to specify the common dependencies that the ho
 ### 4. Layout and styling
 
 In this simplistic example, the layout is handled by the shell app that applies a simple grid layout to the microfrontends. The microfrontends are not aware of the layout or styling. Obviously, this is not a scalable solution, but it is a good starting point for a proof of concept. In a sustainable solution, a common styling library should be used where each of the microfronteds load layout level components, or style sheets, thus ensuring that the layout is consistent across the whole system. A starting point is made where the microfrontends can load a layout component from the host app, but this is commmented out in this example as it does not work out of box the when deploying with Docker.
+
+<br />
+<br />
+
+### 5. Data sharing between microfrontends
+
+There are only 6 reasonable ways to share the state across microfrontends:
+
+- A window level observable uses the global window object as the medium to share the data, often wrapped into a pub-sub library; or a similar global data bus approach (kinda ok, but not really)
+
+- Web storage, such as Local Storage, Session Storage or Cookies
+
+- URL via query / params
+
+- In-memory (e.g. Redux) shared between apps that share the same framework
+
+- Backend (session or persisted state) (related: to web storage)
+
+- Props and Custom events / Callbacks (available in all frameworks, but actually only viable for React and/or web components)
+
+This example uses the query params approach. An example is implemented in `app2/src/App.tsx` lines 27-29 and 41, where a query param is added to the url when the button is clicked, and the query param is read when the app1's page is loaded. This param is the used an initial value for a an input in `app1/src/User.tsx` lines 10-11 and 20.
+<br />
+Deep links and URL params might be used as navigation redirects, filters for a BE request, initial values, anything that is not sensitive and can be shared with other apps, or with people.
+<br />
+It is a safe solution, but not really scalable. It advantage lies in versatily and simplicty, and also adds to the case that the microfrontends are unaware of each other.
+
+<br />
+<br />
+
+### 8. Development
+
+In this simple example, it is possible to run `yarn vite dev` inside each of the app and develop each app individually. Note that there is a react-router-bug inside app1 (need to fix a condition preventing loading 2 instances or BrowserRouter), and to develop the web component example you only need to edit it's source (`webcomponent1/index.js`) file.
+<br />
+The interactions are best observed if the system is run using `docker-compose`, and the containers rebuild when the files are changed. A similar result can be achieved using the scripts specified in `package.json` in the root folder, or a combination of the scripts inside each of the app folders - but this is as convenient as the docker proposal.
+
+<br />
+<br />
+
+### 7. Deployment
+
+The docker-compose file is a good starting point for deployment. It is possible to run the system locally using `docker-compose up`, and it is also possible to deploy it as a whole to a server.
+<br />
+However, it makes much more sense to deploy each `Dockerfile` thru a separate CI/CD pipeline. This way, each microfrontend app can be deployed independently, and the host app can also be deployed separately.
+<br />
+Each of these `Docker` files runs a build provess and then serves its contents as static files using `nginx`, as this seems to be the most versatile and simple solution.
