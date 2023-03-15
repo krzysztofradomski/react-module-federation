@@ -137,10 +137,14 @@ Each of these `Docker` files runs a build provess and then serves its contents a
 
 Pitfalls and common issues are mostly related to 3 things: deep routing within the microfrontends, authorization and authentification, and data sharing.
 
-- elaborate on deep routing
-
-<br />
-<br />
+- deep routing: the microfrontends are unaware of the routing structure of the host app, and the host app is unaware of the routing structure of the microfrontends. This means that both the microfrontends and the host app must be able to handle deep routing. This is not a problem if the microfrontends are simple widgets, but it is a problem if the microfrontends are full blown apps. However, using react-router-dom (like in this example) it is impossible to nest multiple BrowserRouter components, and to access an app without the shell (which will most likely deploy the app to a subpath), one should pay attention to configure the routing dynamically inside a micrfofrontend, so that it can function both on it's own (even if for development purposes), and as part of the shell (main objective).
+  <br />
+  This issue can be avoided altogether by using only 1 level deep routing, where the shell app is the only one that handles routing (typically using some library), and the microfrontends are single page apps.
+- deep links are also related to data sharing - one the option of inter-app communication is to use the query params, this requires proper setup of routing. It is an option that does not require fixed contracts between the apps, but it is limited in it's offering. This complex issues is descibed in more detail in it's own [Data sharing between microfrontends](#data-sharing-between-microfrontends) section.
+- authorization and authentification: this is a complex topic, and it is not covered in this example. The microfrontends are unaware of the authentification and authorization of the host app, who should be the only one to delegate access to specific resources. The microfrontends should be able to handle the case where the user is not authorized to access a specific resource, and should be able to redirect the user to the login/logout page, or to a page that explains why the user is not authorized to access the resource. Api calls within microfronted could be proxied thru the host app, and the host app could be responsible for handling the authorization and authentification. Another option is that the backend itself will check for the token in the server cookie (which the host app should set, and the microfrontends should have access to), and limited user meta data could be shared with the microfrontends in e.g. local storage. In this case, a simple unathorised response would make the microfrontend redirect the user to the login page of the shell app.
+- layout and styling is also a common issue. There are many solutions here, probably the easiest ones is for all the parts of the system to load the same styling library. Also, there are other means, like using css modules to encapsulate the styling of a microfrontend, and to avoid conflicts with the styling of the host app. This is a good solution for simple widgets, but it is not a good solution for full blown apps, as it is not possible to use css modules in a library, and it is not possible to use css modules in a web component. This is a complex issue, and it is not fully covered in this example. It is descibed in more detail in it's own [Layout and styling](#layout-and-styling) section.
+  <br />
+  <br />
 
 ## Integration of an external web app using web component
 
