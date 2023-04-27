@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  shell:
+    build: shell
+    ports:
+      - "8000:80"
+  app1:
+    build: app1
+    ports:
+      - "5001:80"
+  app2:
+    build: app2
+    ports:
+      - "5002:80"
+
+  componet1:
+    build: webcomponent1
+    ports:
+      - "5003:80"

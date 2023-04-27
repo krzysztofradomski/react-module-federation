@@ -1,9 +1,50 @@
-import React from "react";
+import React, { useState, FormEvent } from "react";
+import { Routes, Route, BrowserRouter, redirect } from "react-router-dom";
+import User from "./User";
+import Users from "./Users";
+import NoMatch from "./NoMatch";
+import Layout from "./Layout";
 
-const App = () => (
-  <div>
-    <h1>App1</h1>
-  </div>
-);
+function App() {
+  const [users, setUsers] = useState<string[]>([]);
 
-export default App;
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const user = (event.currentTarget.elements[0] as HTMLInputElement).value;
+    setUsers((prevState) => [...prevState, user]);
+    event.currentTarget.reset();
+    if (window.location.search) {
+      window.history.pushState(
+        "object",
+        document.title,
+        location.href.split("?")[0]
+      );
+    }
+  };
+
+  if (window.location.pathname.indexOf("/users") === 0) {
+    redirect("/users");
+  }
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Users users={users} />} />
+        <Route path="/users" element={<Users users={users} />} />
+        <Route
+          path="/users/add"
+          element={<User handleSubmit={handleSubmit} />}
+        />
+        <Route path="/users/*" element={<User users={users} />} />
+        <Route path="*" element={<NoMatch />} />
+      </Route>
+    </Routes>
+  );
+}
+
+export default window.location.pathname
+  ? App
+  : () => (
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
